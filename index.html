@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AI-powered skin analysis tool that detects skin concerns, identifies skin type, and provides personalized skincare recommendations.">
+    <title>DermaScan AI — Smart Skin Analyzer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ===== PARTICLES BACKGROUND ===== -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <span class="brand-icon">🧬</span>
+            <span class="brand-text">Derma<span class="brand-highlight">Scan</span> AI</span>
+        </div>
+        <div class="nav-links">
+            <a href="#upload-section" class="nav-link active">Scan</a>
+            <a href="#how-it-works" class="nav-link">How It Works</a>
+            <a href="#features-section" class="nav-link">Features</a>
+            <a href="#contact-section" class="nav-link">Contact</a>
+            <a href="#feedback-section" class="nav-link">Feedback</a>
+        </div>
+        <div class="nav-badge">
+            <span class="badge-dot"></span>
+            AI Powered
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ Advanced Skin Intelligence</div>
+            <h1 class="hero-title">
+                Analyze Your Skin
+                <span class="gradient-text">With AI Precision</span>
+            </h1>
+            <p class="hero-subtitle">
+                Upload a clear facial photo and get instant analysis of skin concerns,
+                personalized skincare routines, and ingredient recommendations — all powered by
+                intelligent image processing.
+            </p>
+            <div class="hero-actions">
+                <a href="#upload-section" class="btn btn-primary btn-lg" id="start-scan-btn">
+                    <span class="btn-icon">📸</span>
+                    Start Skin Scan
+                </a>
+                <a href="#how-it-works" class="btn btn-ghost btn-lg">
+                    Learn More →
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">6+</span>
+                    <span class="stat-label">Skin Concerns Detected</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">3</span>
+                    <span class="stat-label">Skin Types Identified</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">Private & Secure</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="scan-ring ring-1"></div>
+            <div class="scan-ring ring-2"></div>
+            <div class="scan-ring ring-3"></div>
+            <div class="scan-icon-center">🧴</div>
+        </div>
+    </header>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+        <p class="section-subtitle">Three simple steps to healthier-looking skin</p>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">01</div>
+                <div class="step-icon">📤</div>
+                <h3>Upload Photo</h3>
+                <p>Upload a clear, well-lit selfie. Our AI only scans faces to ensure accurate results.</p>
+            </div>
+            <div class="step-connector">
+                <div class="connector-line"></div>
+                <div class="connector-arrow">→</div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">02</div>
+                <div class="step-icon">🔬</div>
+                <h3>AI Analysis</h3>
+                <p>Our engine scans for acne, dark spots, pigmentation, texture, and more.</p>
+            </div>
+            <div class="step-connector">
+                <div class="connector-line"></div>
+                <div class="connector-arrow">→</div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">03</div>
+                <div class="step-icon">📋</div>
+                <h3>Get Results</h3>
+                <p>Receive a detailed skin report with personalized recommendations you can download.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== UPLOAD SECTION ===== -->
+    <section class="upload-section" id="upload-section">
+        <h2 class="section-title">Skin <span class="gradient-text">Scanner</span></h2>
+        <p class="section-subtitle">Our AI detects and scans your face for precise skin analysis</p>
+
+        <div class="scanner-container">
+            <!-- Upload Area -->
+            <div class="upload-area" id="upload-area">
+                <div class="upload-zone" id="upload-zone">
+                    <div class="upload-icon-wrapper">
+                        <div class="upload-pulse"></div>
+                        <span class="upload-icon">📷</span>
+                    </div>
+                    <h3>Drag & Drop Your Photo</h3>
+                    <p>or click to browse files</p>
+                    <span class="upload-formats">Supports JPG, PNG, WEBP • Max 10MB</span>
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                </div>
+
+                <!-- Preview Area (hidden by default) -->
+                <div class="preview-area" id="preview-area" style="display: none;">
+                    <div class="preview-wrapper">
+                        <img id="preview-image" alt="Uploaded face photo">
+                        <div class="scan-overlay" id="scan-overlay">
+                            <div class="scan-line"></div>
+                        </div>
+                    </div>
+                    <div class="preview-actions">
+                        <button class="btn btn-primary" id="analyze-btn">
+                            <span class="btn-icon">🔬</span>
+                            Analyze Skin
+                        </button>
+                        <button class="btn btn-ghost" id="reupload-btn">
+                            <span class="btn-icon">🔄</span>
+                            Change Photo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loading-state" style="display: none;">
+                <div class="loader-ring">
+                    <div class="loader-ring-inner"></div>
+                </div>
+                <h3 class="loading-title">Analyzing Your Skin...</h3>
+                <p class="loading-step" id="loading-step">Initializing scanner...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-percent" id="progress-percent">0%</span>
+            </div>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="privacy-notice">
+            <span class="privacy-icon">🔒</span>
+            <p>Your photos are processed <strong>locally in your browser</strong>. We never upload, store, or share your
+                images.</p>
+        </div>
+    </section>
+
+    <!-- ===== RESULTS SECTION ===== -->
+    <section class="results-section" id="results-section" style="display: none;">
+        <h2 class="section-title">Your Skin <span class="gradient-text">Report</span></h2>
+        <p class="section-subtitle">Here's what our AI detected in your skin analysis</p>
+
+        <!-- Confidence Score -->
+        <div class="confidence-bar" id="confidence-bar">
+            <div class="confidence-info">
+                <span class="confidence-label">Analysis Confidence</span>
+                <span class="confidence-value" id="confidence-value">0%</span>
+            </div>
+            <div class="confidence-track">
+                <div class="confidence-fill" id="confidence-fill"></div>
+            </div>
+        </div>
+
+        <div class="results-grid">
+
+            <!-- Left: Face Map -->
+            <div class="result-card face-map-card">
+                <div class="card-header">
+                    <h3>📍 Face Map — Detected Areas</h3>
+                </div>
+                <div class="face-map-container" id="face-map-container">
+                    <canvas id="face-map-canvas"></canvas>
+                </div>
+                <div class="face-map-legend" id="face-map-legend"></div>
+            </div>
+
+            <!-- Right: Skin Summary -->
+            <div class="results-right">
+
+                <!-- Skin Type Card -->
+                <div class="result-card skin-type-card" id="skin-type-card">
+                    <div class="card-header">
+                        <h3>🧪 Detected Skin Type</h3>
+                    </div>
+                    <div class="skin-type-display">
+                        <div class="skin-type-icon" id="skin-type-icon">💧</div>
+                        <div class="skin-type-info">
+                            <h4 id="skin-type-name">—</h4>
+                            <p id="skin-type-desc">Upload a photo to detect your skin type.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detected Conditions -->
+                <div class="result-card conditions-card">
+                    <div class="card-header">
+                        <h3>🩺 Detected Skin Concerns</h3>
+                    </div>
+                    <div class="conditions-list" id="conditions-list">
+                        <!-- Dynamically filled -->
+                    </div>
+                </div>
+
+                <!-- Severity Overview -->
+                <div class="result-card severity-card">
+                    <div class="card-header">
+                        <h3>📊 Overall Severity</h3>
+                    </div>
+                    <div class="severity-display" id="severity-display">
+                        <div class="severity-meter">
+                            <div class="severity-fill" id="severity-fill"></div>
+                        </div>
+                        <div class="severity-labels">
+                            <span>Mild</span>
+                            <span>Moderate</span>
+                            <span>Severe</span>
+                        </div>
+                        <p class="severity-text" id="severity-text">—</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="result-card summary-card">
+            <div class="card-header">
+                <h3>📝 Skin Analysis Summary</h3>
+            </div>
+            <p class="summary-text" id="summary-text">—</p>
+        </div>
+
+        <!-- Skincare Recommendations -->
+        <div class="recommendations-section">
+            <h2 class="section-title">Skincare <span class="gradient-text">Recommendations</span></h2>
+            <p class="section-subtitle">Personalized routines based on your skin analysis</p>
+
+            <div class="routines-grid">
+                <!-- Morning Routine -->
+                <div class="result-card routine-card">
+                    <div class="card-header">
+                        <h3>🌅 Morning Routine</h3>
+                    </div>
+                    <div class="routine-steps" id="morning-routine">
+                        <!-- Dynamically filled -->
+                    </div>
+                </div>
+
+                <!-- Night Routine -->
+                <div class="result-card routine-card">
+                    <div class="card-header">
+                        <h3>🌙 Night Routine</h3>
+                    </div>
+                    <div class="routine-steps" id="night-routine">
+                        <!-- Dynamically filled -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended Ingredients -->
+            <div class="result-card ingredients-card">
+                <div class="card-header">
+                    <h3>🧴 Recommended Ingredients</h3>
+                </div>
+                <div class="ingredients-grid" id="ingredients-grid">
+                    <!-- Dynamically filled -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer-card" id="disclaimer">
+            <div class="disclaimer-icon">⚠️</div>
+            <h4>Important Disclaimer</h4>
+            <p>
+                This analysis is <strong>not a medical diagnosis</strong>. The results are generated using
+                image processing algorithms and are intended for <strong>educational and informational purposes
+                    only</strong>.
+                Skin conditions can vary greatly and may require professional evaluation.
+            </p>
+            <p>
+                <strong>Please consult a qualified dermatologist</strong> for persistent or severe skin conditions.
+                Do not use this tool as a substitute for professional medical advice, diagnosis, or treatment.
+            </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="results-actions">
+            <button class="btn btn-primary btn-lg" id="download-report-btn">
+                <span class="btn-icon">📥</span>
+                Download Report
+            </button>
+            <button class="btn btn-share btn-lg" id="share-results-btn">
+                <span class="btn-icon">🔗</span>
+                Share
+            </button>
+            <button class="btn btn-ghost btn-lg" id="new-scan-btn">
+                <span class="btn-icon">🔄</span>
+                New Scan
+            </button>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section class="features-section" id="features-section">
+        <h2 class="section-title">Why <span class="gradient-text">DermaScan AI</span>?</h2>
+        <p class="section-subtitle">Built with privacy, accuracy, and simplicity in mind</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>100% Private</h3>
+                <p>All processing happens in your browser. No images are ever uploaded or stored on any server.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Results</h3>
+                <p>Get your skin analysis in seconds with our optimized image processing engine.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Multi-Concern Detection</h3>
+                <p>Detects acne, dark spots, pigmentation, uneven tone, and more in a single scan.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Downloadable Reports</h3>
+                <p>Save your analysis as a detailed report to track your skin health over time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧴</div>
+                <h3>Personalized Routines</h3>
+                <p>Get morning and night skincare routines tailored to your specific skin needs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💊</div>
+                <h3>Ingredient Guide</h3>
+                <p>Learn about OTC ingredients like salicylic acid, niacinamide, and vitamin C for your skin.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT US SECTION ===== -->
+    <section class="contact-section" id="contact-section">
+        <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+        <p class="section-subtitle">Have questions or feedback? Reach out to us anytime!</p>
+
+        <div class="contact-grid">
+            <!-- Instagram -->
+            <a href="https://instagram.com/s09uuu_" target="_blank" rel="noopener noreferrer"
+                class="contact-card contact-instagram">
+                <div class="contact-icon-wrapper">
+                    <svg class="contact-svg-icon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                </div>
+                <div class="contact-info">
+                    <h3>Instagram</h3>
+                    <p>@s09uuu_</p>
+                </div>
+                <span class="contact-arrow">→</span>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/918958649058" target="_blank" rel="noopener noreferrer"
+                class="contact-card contact-whatsapp">
+                <div class="contact-icon-wrapper">
+                    <svg class="contact-svg-icon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                </div>
+                <div class="contact-info">
+                    <h3>WhatsApp</h3>
+                    <p>+91 8958649058</p>
+                </div>
+                <span class="contact-arrow">→</span>
+            </a>
+
+            <!-- Gmail -->
+            <a href="mailto:s09uu118@gmail.com" class="contact-card contact-gmail">
+                <div class="contact-icon-wrapper">
+                    <svg class="contact-svg-icon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                        <path
+                            d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
+                    </svg>
+                </div>
+                <div class="contact-info">
+                    <h3>Email</h3>
+                    <p>s09uu118@gmail.com</p>
+                </div>
+                <span class="contact-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== SHARE MODAL ===== -->
+    <div class="share-modal-overlay" id="share-modal-overlay">
+        <div class="share-modal" id="share-modal">
+            <button class="share-modal-close" id="share-modal-close">✕</button>
+            <h3>Share <span class="gradient-text">DermaScan AI</span></h3>
+            <p class="share-modal-subtitle">Spread the word and help others discover better skincare!</p>
+
+            <div class="share-options">
+                <button class="share-option share-whatsapp" id="share-whatsapp">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    <span>WhatsApp</span>
+                </button>
+                <button class="share-option share-twitter" id="share-twitter">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    <span>X (Twitter)</span>
+                </button>
+                <button class="share-option share-linkedin" id="share-linkedin">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                    <span>LinkedIn</span>
+                </button>
+                <button class="share-option share-email" id="share-email">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path
+                            d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
+                    </svg>
+                    <span>Email</span>
+                </button>
+                <button class="share-option share-copy" id="share-copy">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <path
+                            d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                    </svg>
+                    <span>Copy Link</span>
+                </button>
+            </div>
+
+            <div class="share-copy-feedback" id="share-copy-feedback">✅ Link copied to clipboard!</div>
+        </div>
+    </div>
+
+    <!-- ===== FLOATING SHARE BUTTON ===== -->
+    <button class="floating-share-btn" id="floating-share-btn" title="Share DermaScan AI">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+            <path
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+        </svg>
+    </button>
+
+    <!-- ===== FEEDBACK SECTION ===== -->
+    <section class="feedback-section" id="feedback-section">
+        <h2 class="section-title">User <span class="gradient-text">Feedback</span></h2>
+        <p class="section-subtitle">We value your experience! Please rate us and leave a comment.</p>
+
+        <div class="feedback-container">
+            <form id="feedback-form" class="feedback-form">
+                <div class="rating-wrapper">
+                    <p class="rating-label">How was your experience?</p>
+                    <div class="star-rating" id="star-rating">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" name="rating" id="rating-input" value="0">
+                </div>
+
+                <div class="comment-wrapper">
+                    <textarea id="feedback-comments" name="comments" placeholder="Write your comments here..."
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg" id="submit-feedback-btn">
+                    <span class="btn-icon">💬</span>
+                    Submit Feedback
+                </button>
+            </form>
+
+            <div id="feedback-success" class="feedback-success" style="display: none;">
+                <div class="success-icon">✨</div>
+                <h3>Thank You!</h3>
+                <p>Your feedback helps us make DermaScan AI better for everyone.</p>
+                <button class="btn btn-ghost" id="new-feedback-btn">Send Another</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="brand-icon">🧬</span>
+                <span class="brand-text">Derma<span class="brand-highlight">Scan</span> AI</span>
+            </div>
+            <p class="footer-text">
+                An educational skin analysis tool. Not a substitute for professional medical advice.
+            </p>
+            <div class="footer-links">
+                <a href="#hero">Home</a>
+                <a href="#upload-section">Scan</a>
+                <a href="#features-section">Features</a>
+                <a href="#contact-section">Contact</a>
+                <a href="#feedback-section">Feedback</a>
+                <a href="#disclaimer">Disclaimer</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://instagram.com/s09uuu_" target="_blank" rel="noopener noreferrer" title="Instagram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                </a>
+                <a href="https://wa.me/918958649058" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                </a>
+                <a href="mailto:s09uu118@gmail.com" title="Email">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path
+                            d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-copy">© 2026 DermaScan AI. Built with ❤️ for healthier skin.</p>
+        </div>
+    </footer>
+
+    <!-- Hidden canvas for image processing -->
+    <canvas id="analysis-canvas" style="display: none;"></canvas>
+
+    <!-- External Libraries (Face Detection) -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+    <!-- Scripts -->
+    <script src="analyzer.js"></script>
+    <script src="report.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
