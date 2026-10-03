@@ -27,7 +27,7 @@ An AI-powered web application that analyzes facial skin conditions using client-
 
 ## 🚀 Live Demo
 
-[**Try DermaScan AI →**](#) *(https://storied-meerkat-31ea6e.netlify.app/)
+[**Try DermaScan AI →**](#) * https://storied-meerkat-31ea6e.netlify.app/
 
 ---
 
